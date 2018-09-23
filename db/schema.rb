@@ -10,10 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180922213232) do
+ActiveRecord::Schema.define(version: 20180923032913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pages", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "permalink"
+    t.integer  "position"
+    t.boolean  "visible",    default: false
+    t.integer  "subject_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["subject_id"], name: "index_pages_on_subject_id", using: :btree
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.boolean  "visible",      default: false
+    t.string   "content_type"
+    t.text     "content"
+    t.integer  "page_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["page_id"], name: "index_sections_on_page_id", using: :btree
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.boolean  "visible",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name", limit: 25
@@ -24,4 +55,6 @@ ActiveRecord::Schema.define(version: 20180922213232) do
     t.datetime "updated_at",                         null: false
   end
 
+  add_foreign_key "pages", "subjects"
+  add_foreign_key "sections", "pages"
 end
