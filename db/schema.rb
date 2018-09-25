@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180925000147) do
+ActiveRecord::Schema.define(version: 20180925021041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 20180925000147) do
     t.datetime "updated_at",                 null: false
     t.index ["permalink"], name: "index_pages_on_permalink", using: :btree
     t.index ["subject_id"], name: "index_pages_on_subject_id", using: :btree
+  end
+
+  create_table "section_edits", force: :cascade do |t|
+    t.integer  "admin_user_id"
+    t.integer  "section_id"
+    t.string   "summary"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["admin_user_id", "section_id"], name: "index_section_edits_on_admin_user_id_and_section_id", using: :btree
   end
 
   create_table "sections", force: :cascade do |t|
