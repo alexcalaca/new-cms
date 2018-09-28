@@ -1,3 +1,3 @@
 class Subject < ApplicationRecord
-  has_many :pages, { :optional => false}
+  has_many :pages
 end
