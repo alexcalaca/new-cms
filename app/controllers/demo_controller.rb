@@ -1,11 +1,11 @@
 class DemoController < ApplicationController
   
   def index
-    render('hello')
+    render('index')
   end
   
   def hello
-    render('index')
+    render('hello')
   end
   
   def other_hello
