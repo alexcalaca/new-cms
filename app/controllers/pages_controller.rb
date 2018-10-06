@@ -11,6 +11,8 @@ class PagesController < ApplicationController
 
   def edit
     @page = Page.find(params[:id])
+    @page_sections = Page.page_sections
+    @page_count = Page.page_count
   end
   
   def update
@@ -19,12 +21,16 @@ class PagesController < ApplicationController
     if @page.update_attributes(page_params)
       redirect_to(page_path(@page))
     else
+      @page_count = Page.page_count
+      @page_sections = Page.page_sections
       render 'edit'
     end
   end
 
   def new
     @page = Page.new
+    @page_sections = Page.page_sections
+    @page_count = Page.page_count + 1
   end
 
   def create
@@ -33,6 +39,8 @@ class PagesController < ApplicationController
     if @page.save
       redirect_to(pages_path) #It redirects to index
     else
+      @page_count = Page.page_count + 1
+      @page_sections = Page.page_sections
       render('new')
     end
   end
