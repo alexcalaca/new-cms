@@ -1,3 +1,5 @@
+<%= error_messages_for(f.object) %>
+
 <table summary="Page form fields">
   <tr>
     <th>Name</th>
@@ -5,14 +7,14 @@
   </tr>
   <tr>
     <th>Position</th>
-    <td><%= f.text_field(:position) %></td>
+    <td><%= f.select(:position, 1..@page_count) %></td>
   </tr>
   <tr>
     <th>Visible</th>
     <td><%= f.check_box(:visible) %></td>
   </tr>
   <tr>
-    <th>Subject id</th>
-    <td><%= f.select(:subject_id, @page_one.position) %></td>
+    <th>Subject</th>
+    <td><%= f.select(:subject_id, @page_sections.collect {|p| [p.name, p.id] }, include_blank: true) %></td>
   </tr>
 </table>
