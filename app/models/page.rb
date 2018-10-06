@@ -3,5 +3,7 @@ class Page < ApplicationRecord
   belongs_to :subject, { :optional => false}
   has_many :sections
   
-  scope :sorted, lambda { order("position ASC") }
+  scope :sorted, lambda { order("position ASC ") }
+  scope :page_sections, lambda { Section.order("position") }
+  scope :page_count, lambda { Page.count }
 end
